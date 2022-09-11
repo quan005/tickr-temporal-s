@@ -3,7 +3,7 @@ databases:
   databaseName: temporal
   user: temporal
   plan: Starter
-  region: oregon
+  region: ohio
 
 envVarGroups:
   - name: temporal-shared
@@ -24,7 +24,7 @@ services:
   name: temporal-elasticsearch
   autoDeploy: false
   plan: Starter
-  region: oregon
+  region: ohio
   env: docker
   dockerfilePath: ./temporal-cluster/elasticsearch/Dockerfile
   disk:
@@ -54,7 +54,7 @@ services:
   name: temporal-frontend
   autoDeploy: false
   plan: Starter
-  region: oregon
+  region: ohio
   env: docker
   dockerfilePath: ./temporal-cluster/server/auto-setup/Dockerfile
   scaling:
@@ -104,7 +104,7 @@ services:
   name: temporal-history
   autoDeploy: false
   plan: Starter
-  region: oregon
+  region: ohio
   env: docker
   dockerfilePath: ./temporal-cluster/server/Dockerfile
   scaling:
@@ -151,7 +151,7 @@ services:
   name: temporal-matching
   autoDeploy: false
   plan: Starter
-  region: oregon
+  region: ohio
   env: docker
   dockerfilePath: ./temporal-cluster/server/Dockerfile
   scaling:
@@ -198,7 +198,7 @@ services:
   autoDeploy: false
   name: temporal-worker
   plan: Starter
-  region: oregon
+  region: ohio
   env: docker
   dockerfilePath: ./temporal-cluster/server/Dockerfile
   scaling:
@@ -252,7 +252,7 @@ services:
   name: temporal-ui
   autoDeploy: false
   plan: Starter
-  region: oregon
+  region: ohio
   env: docker
   dockerfilePath: ./temporal-cluster/web/Dockerfile
   envVars:
@@ -272,7 +272,7 @@ services:
 #   repo: https://github.com/render-examples/temporal-rest-proxy
 #   autoDeploy: false
 #   plan: Starter
-#   region: oregon
+#   region: ohio
 #   env: go
 #   buildCommand: go build rest-proxy/main.go
 #   startCommand: ./main
@@ -284,31 +284,41 @@ services:
 #       property: host
 #   - key: AUTH_TOKEN
 #     sync: false
-- type: web
-  repo: https://github.com/render-examples/sample-temporal-app
-  name: app-workflow-trigger
-  plan: Starter
-  region: oregon
-  env: go
-  buildCommand: go build start/main.go
-  startCommand: ./main
-  envVars:
-  - key: TEMPORAL_CLUSTER_HOST
-    fromService:
-      name: temporal-frontend
-      type: pserv
-      property: host
 - type: worker
-  repo: https://github.com/render-examples/sample-temporal-app
-  name: app-worker
+  repo: https://github.com/quan005/Tickr-workflow
+  name: tickr-workflow
   plan: Starter
-  region: oregon
-  env: go
-  buildCommand: go build worker/main.go
-  startCommand: ./main
+  region: ohio
+  env: node
+  buildCommand: npm run build
+  startCommand: npm run start
   envVars:
-  - key: TEMPORAL_CLUSTER_HOST
+  - key: TEMPORAL_CLUSTER_ADDRESS
     fromService:
       name: temporal-frontend
       type: pserv
       property: host
+  - key: KAFKA_BROKER
+    value: 167.172.137.136:9092
+  - key: SCHEMA_REGISTRY_URL
+    value: http://167.172.137.136:8081
+  - key: API_HOSTNAME
+    value: tickr-api-fdgen.ondigitalocean.app
+  - key: API_PORT
+    value: 4000
+  - key: REDIRECT_URI
+    value: https://localhost
+  - key: TD_AUTH_URL
+    value: https://auth.tdameritrade.com/auth?
+  - key: TD_USERNAME
+    sync: false
+  - key: TD_PASSWORD
+    sync: false
+  - key: TD_ANSWER_1
+    value: aztec
+  - key: TD_ANSWER_2
+    value: lavon
+  - key: TD_ANSWER_3
+    value: chandler
+  - key: TD_ANSWER_4
+    value: bear
