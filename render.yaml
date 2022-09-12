@@ -291,7 +291,7 @@ services:
   region: ohio
   env: node
   buildCommand: npm install
-  startCommand: npm run build:tickr && npm run build:workflow && npm run start:worker && npm run start:client
+  startCommand: npm run build
   envVars:
   - key: TEMPORAL_CLUSTER_ADDRESS
     fromService:
