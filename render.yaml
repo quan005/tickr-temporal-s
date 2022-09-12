@@ -293,6 +293,8 @@ services:
   buildCommand: npm install && npm run build
   startCommand: npm run start
   envVars:
+  - key: NODE_VERSION
+    value: 17.2.0
   - key: TEMPORAL_CLUSTER_ADDRESS
     fromService:
       name: temporal-frontend
