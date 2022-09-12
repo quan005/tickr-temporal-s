@@ -290,8 +290,8 @@ services:
   plan: Starter
   region: ohio
   env: node
-  buildCommand: npm install && npm run build && npm run build:workflow
-  startCommand: npm run start:worker && npm run start:client
+  buildCommand: ll
+  startCommand: 
   envVars:
   - key: TEMPORAL_CLUSTER_ADDRESS
     fromService:
